@@ -1,7 +1,10 @@
 ---
 title: "R"
 author: "Meng-Han Chang"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    theme: united
 ---
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/1200px-R_logo.svg.png){width=25%}  
 
@@ -229,7 +232,8 @@ result
 ```{r}
 runif(5)
 ```
-generate 5 random variabes
+generate 5 random variabes  
+
 ###2. Binomial
 ```{r}
 rbinom(24, 15, 0.1)
@@ -248,7 +252,8 @@ $P(X \leq 4)$  is `r Binomial_p`
 ```{r}
 Binomial_q=qbinom(0.89, 6, 0.5) 
 ```
-The 89th percentile of the distribution of X  is `r Binomial_q` 
+The 89th percentile of the distribution of X  is `r Binomial_q`  
+
 ###3. Poisson
 ```{r}
  rpois(10, 3.7) 
@@ -265,8 +270,10 @@ $P(X \leq 3)$  is `r Poisson_p`
 ```{r}
 Poisson_q=qpois(0.89,0.5)
 ```
-The 89th percentile of the distribution of X  is `r Poisson_q` 
-###4. Exponential
+The 89th percentile of the distribution of X  is `r Poisson_q`   
+
+###4. Exponential  
+
 ```{r}
 rexp(10, rate = 3) 
 ```
