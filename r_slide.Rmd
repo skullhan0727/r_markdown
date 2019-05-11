@@ -1,0 +1,327 @@
+---
+title: "R"
+author: "Meng-Han Chang"
+output: html_document
+---
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/1200px-R_logo.svg.png){width=25%}  
+
+##Basic Operator  
+
+###1. Arithmetic Operators
+Operator|	Description 
+-|-
++|	Addition  
+¡V|	Subtraction  
+*|	Multiplication  
+/|	Division  
+^|	Exponent  
+%%|	Modulus (Remainder from division)  
+%/%|	Integer Division  
+```{r}
+8+7
+```
+###2. Relational Operators
+Operator|	Description 
+-|-
+<|	Less than
+>|	Greater than
+<=|	Less than or equal to
+>=|	Greater than or equal to
+==|	Equal to
+!=|	Not equal to
+```{r}
+1>2
+```
+
+###3. Logical Operators
+Operator|	Description 
+-|-
+!|	Logical NOT
+&|	Element-wise logical AND
+&&|	Logical AND
+\|\ |	Element-wise logical OR
+\|\|\ |	Logical OR
+```{r}
+(1>0) && (-1>0)
+
+
+x=c(1,2,3) 
+y=c(3,2,1)
+(x>2)|(y>2)
+
+```
+##Data Type
+* vector  
+* matrix 
+* array
+* factor
+* list
+* data frame 
+
+###1. vector
+```{r}
+1:10
+
+c(0, 7, 8)
+```
+
+###2. matrix
+```{r}
+matrix(c(1:6), nrow=3, ncol=2)
+```
+$$A=
+\left[
+\begin{matrix}
+   1 & 4 \\
+   2 & 5 \\
+   3 & 6 \\
+  \end{matrix} 
+\right]$$
+```{r,echo=F}
+A=matrix(c(1:6), nrow=3, ncol=2)
+
+```
+```{r}
+A[2,2]
+A[1,]
+```
+###3. array
+```{r}
+array(1:24, dim = c(4, 3, 2))
+```
+###4.factor
+```{r}
+gender <- c("boy", "girl", "boy", "boy", "girl") 
+gender <- factor(gender)
+gender 
+```
+```{r}
+levels(gender)
+```
+###5. list
+```{r}
+student <- list(gender="man", age=18)
+student 
+
+```
+```{r}
+str(student)
+```
+###6. data frame
+```{r}
+ colors <- c("red", "yellow", "blue") 
+ numbers <- c(1, 2, 3) 
+ colors.and.numbers <- data.frame(colors, numbers, more.numbers=c(4, 5, 6))
+ colors.and.numbers
+
+```
+##Graphics  
+* Bar charts   
+* Dot charts  
+* Pie charts
+* Histograms
+* Box plots
+* Scatterplots
+* QQ plots
+
+###1. Bar charts 
+```{r}
+VADeaths
+```
+```{r,fig.align="center"}
+barplot(VADeaths, beside=TRUE, legend=TRUE, ylim=c(0, 90), ylab="Deaths per 1000",  main="Death rates in Virginia")
+
+```
+
+###2. Dot charts
+```{r,fig.align="left"}
+dotchart(VADeaths, xlim=c(0, 75), xlab="Deaths per 1000", main="Death rates in Virginia")
+```
+
+###3. Pie charts
+```{r,fig.align="right"}
+groupsizes <- c(18, 30, 32, 10, 10) 
+labels <- c("A", "B", "C", "D", "F") 
+pie(groupsizes, labels, col=c("grey40", "white", "grey", "black", "grey90")) 
+```
+
+###4. Histograms
+
+```{r}
+x <- rnorm(100) 
+hist(x)
+```
+
+###5. Box plots
+
+```{r}
+boxplot(Sepal.Length ~ Species, data = iris, ylab = "Sepal length (cm)", main = "Iris measurements",  boxwex = 0.5)
+
+```
+
+###6. Scatterplots
+```{r}
+ x <- rnorm(100)
+ y <- rpois(100, 30) 
+ plot(x, y, main = "Poisson versus Normal")
+
+```
+
+###7. QQ plots
+```{r}
+ X <- rnorm(1000) 
+ A <- rnorm(1000) 
+ qqplot(X, A, main="A and X are the same") 
+```
+
+##Function 
+* for
+* if
+* while
+* repeat (break)
+
+###1. for
+```{r}
+Fibonacci <- numeric(12) 
+Fibonacci[1] <- Fibonacci[2] <- 1 
+for (i in 3:12) Fibonacci[i] <- Fibonacci[i - 2] + Fibonacci[i - 1]
+Fibonacci
+```
+
+###2. if
+```{r}
+x <- 3 
+if (x > 2) y <- 2 * x else y <- 3 * x 
+y
+```
+###3. while
+```{r}
+ Fib1 <- 1 
+ Fib2 <- 1 
+ Fibonacci <- c(Fib1, Fib2) 
+ while (Fib2 < 300) { 
+  Fibonacci <- c(Fibonacci, Fib2) 
+  oldFib2 <- Fib2 
+  Fib2 <- Fib1 +Fib2 
+  Fib1 <- oldFib2 
+ }
+Fibonacci
+```
+###4. repeat (break)
+```{r}
+i <- 1
+result <- 0
+repeat{
+  if(i > 135) break 
+  result <- result + i
+  i <- i + 1
+}
+result
+```
+##Simulation
+* uniform
+* Binomial  
+* Poisson
+* Exponential
+* Normal
+
+###1. uniform
+```{r}
+runif(5)
+```
+generate 5 random variabes
+###2. Binomial
+```{r}
+rbinom(24, 15, 0.1)
+
+```
+generate 24 random variabes
+```{r}
+Binomial_d=dbinom(x = 4, size = 6, prob = 0.5) 
+```
+$P(X =4)$ is `r Binomial_d`
+
+```{r}
+Binomial_p=pbinom(4, 6, 0.5)
+```
+$P(X \leq 4)$  is `r Binomial_p`
+```{r}
+Binomial_q=qbinom(0.89, 6, 0.5) 
+```
+The 89th percentile of the distribution of X  is `r Binomial_q` 
+###3. Poisson
+```{r}
+ rpois(10, 3.7) 
+```
+generate 10 random variabes
+```{r}
+Poisson_d=dpois(x = 3, lambda = 0.5) 
+```
+$P(X =3)$ is `r Poisson_d`
+```{r}
+Poisson_p=ppois(3,0.5)
+```
+$P(X \leq 3)$  is `r Poisson_p`
+```{r}
+Poisson_q=qpois(0.89,0.5)
+```
+The 89th percentile of the distribution of X  is `r Poisson_q` 
+###4. Exponential
+```{r}
+rexp(10, rate = 3) 
+```
+generate 10 random variabes
+```{r}
+Exponential_d=dexp(1, rate = 3)
+```
+$f(1) =$ `r Exponential_d`
+```{r}
+Exponential_p=pexp(1, rate = 3)
+
+```
+$F(1) =$ `r Exponential_p`
+```{r}
+Exponential_q=qexp(0.89,rate = 3)
+
+```
+The 89th percentile of the distribution of X  is `r Exponential_q`  
+
+###5. Normal
+```{r}
+rnorm(10, 0, 0.5)
+```
+generate 10 random variabes
+```{r}
+Normal_d=dnorm(0,0,0.5)
+```
+$f(0) =$ `r Normal_d`
+```{r}
+Normal_p=pnorm(0,0,0.5)
+```
+$F(0) =$ `r Normal_p`
+```{r}
+Normal_q=qnorm(0.89,0,0.5)
+
+```
+
+The 89th percentile of the distribution of X  is `r Normal_q` 
+
+## Linear programming
+```{r,echo=F,warning=F}
+library(lpSolve)
+```
+$$minC =5x_1 +8x_2$$  
+$$x_1 +x_2 \geq 2$$
+$$x_1 +2x_2 \geq 3$$
+$$x_1,x_2 \geq 0$$
+```{r}
+eg.lp <- lp(objective.in=c(5, 8), const.mat=matrix(c(1, 1, 1, 2),  nrow=2), const.rhs=c(2, 3), const.dir=c(">=", ">="))
+eg.lp
+x1x2=eg.lp$solution 
+```
+(x1,x2)=(`r x1x2`)  
+$$minC =5x_1 +8x_2=13$$  
+
+
+
+
